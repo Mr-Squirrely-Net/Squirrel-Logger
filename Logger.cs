@@ -4,49 +4,132 @@ using System.IO;
 namespace Squirrel_Logger {
     public class Logger {
         private readonly StreamWriter _loggerWriter;
+
+        /// <summary>
+        /// Sets the name and extension of the log file.
+        /// </summary>
+        /// <param name="loggerName">The name you wish to use</param>
+        /// <param name="loggerExtension">The extension you wish to use</param>
+        public Logger(string loggerName, string loggerExtension) => _loggerWriter = new StreamWriter($"{loggerName}.{loggerExtension}");
+
         /// <summary>
         /// Sets the name of the log file.
         /// </summary>
         /// <param name="loggerName">The name you wish to use</param>
         public Logger(string loggerName) => _loggerWriter = new StreamWriter($"{loggerName}.log");
-        /// <summary>
-        /// Outputs to the log using a string message.
-        /// </summary>
-        /// <param name="message">Message to output</param>
-        /// <seealso cref="LogInfo(Exception)">Use this for exceptions</seealso>
-        public void LogInfo(string message) {
-            _loggerWriter.WriteLine();
-            _loggerWriter.Write("====== INFO ======");
-            _loggerWriter.Write(message);
-        }
-        /// <summary>
-        /// Outputs to the log using an exception.
-        /// </summary>
-        /// <param name="ex">The exception you wish to output</param>
-        public void LogInfo(Exception ex) {
-            _loggerWriter.WriteLine();
-            _loggerWriter.Write("====== INFO ======");
-            _loggerWriter.Write(StringBuilder(ex));
-        }
-        /// <summary>
-        /// Outputs to the log using a string message.
-        /// </summary>
-        /// <param name="message">Message to output</param>
-        /// <seealso cref="LogError(Exception)">Use this for exceptions</seealso>
-        public void LogError(string message) {
-            _loggerWriter.WriteLine();
-            _loggerWriter.Write("====== ERROR ======");
 
-        }
         /// <summary>
-        /// Outputs to the log using an exception.
+        /// Outputs information either to a log file or to the console dependent on what your request
         /// </summary>
-        /// <param name="ex">The exception you wish to output</param>
-        public void LogError(Exception ex) {
-            _loggerWriter.WriteLine();
-            _loggerWriter.Write("====== ERROR ======");
-            _loggerWriter.Write(StringBuilder(ex));
+        /// <param name="outputType">The output type you with to use Either 'File' or 'Console'</param>
+        /// <param name="level">The error level of the log Either 'Debug' or 'Info' or 'Error' or 'Fatal'</param>
+        /// <param name="message">A string message</param>
+        public void Log(Enums.OutputType outputType, Enums.Level level, string message) {
+            switch (outputType) {
+                case Enums.OutputType.File:
+                    _loggerWriter.WriteLine();
+                    switch (level) {
+                        case Enums.Level.Debug:
+                            _loggerWriter.Write("====== DEBUG ======");
+                            break;
+                        case Enums.Level.Info:
+                            _loggerWriter.Write("====== INFO  ======");
+                            break;
+                        case Enums.Level.Error:
+                            _loggerWriter.Write("====== ERROR ======");
+                            break;
+                        case Enums.Level.Fatal:
+                            _loggerWriter.Write("====== FATAL ======");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(level), level, null);
+                    }
+                    _loggerWriter.Write(message);
+                    break;
+                case Enums.OutputType.Console:
+                    Console.WriteLine();
+                    switch (level) {
+                        case Enums.Level.Debug:
+                            CenterText("====== DEBUG ======");
+                            break;
+                        case Enums.Level.Info:
+                            CenterText("====== INFO  ======");
+                            break;
+                        case Enums.Level.Error:
+                            CenterText("====== ERROR ======");
+                            break;
+                        case Enums.Level.Fatal:
+                            CenterText("====== FATAL ======");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(level), level, null);
+                    }
+                    Console.WriteLine(message);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(outputType), outputType, null);
+            }
         }
+
+        /// <summary>
+        /// Outputs information either to a log file or to the console dependent on what your request
+        /// </summary>
+        /// <param name="outputType">The output type you with to use Either 'File' or 'Console'</param>
+        /// <param name="level">The error level of the log Either 'Debug' or 'Info' or 'Error' or 'Fatal'</param>
+        /// <param name="ex">A exception message</param>
+        public void Log(Enums.OutputType outputType, Enums.Level level, Exception ex) {
+            switch (outputType) {
+                case Enums.OutputType.File:
+                    _loggerWriter.WriteLine();
+                    switch (level) {
+                        case Enums.Level.Debug:
+                            _loggerWriter.Write("====== DEBUG ======");
+                            break;
+                        case Enums.Level.Info:
+                            _loggerWriter.Write("====== INFO  ======");
+                            break;
+                        case Enums.Level.Error:
+                            _loggerWriter.Write("====== ERROR ======");
+                            break;
+                        case Enums.Level.Fatal:
+                            _loggerWriter.Write("====== FATAL ======");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(level), level, null);
+                    }
+                    _loggerWriter.Write(StringBuilder(ex));
+                    break;
+                case Enums.OutputType.Console:
+                    Console.WriteLine();
+                    switch (level) {
+                        case Enums.Level.Debug:
+                            CenterText("====== DEBUG ======");
+                            break;
+                        case Enums.Level.Info:
+                            CenterText("====== INFO  ======");
+                            break;
+                        case Enums.Level.Error:
+                            CenterText("====== ERROR ======");
+                            break;
+                        case Enums.Level.Fatal:
+                            CenterText("====== FATAL ======");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(level), level, null);
+                    }
+                    Console.WriteLine(StringBuilder(ex));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(outputType), outputType, null);
+            }
+        }
+
+        /// <summary>
+        /// Centers the console text based on a given string
+        /// </summary>
+        /// <param name="textToCenter">string to center</param>
+        private static void CenterText(string textToCenter) => Console.SetCursorPosition((Console.WindowWidth - textToCenter.Length) / 2, Console.CursorTop);
+
         /// <summary>
         /// This takes the exception and turns it into something readable.
         /// </summary>
@@ -59,11 +142,10 @@ namespace Squirrel_Logger {
                    $"{ex.TargetSite}\n" +
                    $"{ex.Data}";
         }
+
         /// <summary>
         /// This disposes everything.
         /// </summary>
-        public void Dispose() {
-            _loggerWriter.Close();
-        }
+        public void Dispose() => _loggerWriter.Close();
     }
 }

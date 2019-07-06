@@ -10,6 +10,9 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageId>SquirrelLogger</PackageId>
     <PackageProjectUrl>https://github.com/MrSquirrelyNet/Squirrel-Logger</PackageProjectUrl>
+    <Version>1.2.0</Version>
+    <RepositoryUrl>https://github.com/MrSquirrelyNet/Squirrel-Logger</RepositoryUrl>
+    <PackageReleaseNotes>1.2.0: Updated the way you create logs.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
