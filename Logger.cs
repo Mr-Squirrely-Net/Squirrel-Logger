@@ -24,21 +24,21 @@ namespace Squirrel_Logger {
         /// <param name="outputType">The output type you with to use Either 'File' or 'Console'</param>
         /// <param name="level">The error level of the log Either 'Debug' or 'Info' or 'Error' or 'Fatal'</param>
         /// <param name="message">A string message</param>
-        public void Log(Enums.OutputType outputType, Enums.Level level, string message) {
+        public void Log(OutputType outputType, Level level, string message) {
             switch (outputType) {
-                case Enums.OutputType.File:
+                case OutputType.File:
                     _loggerWriter.WriteLine();
                     switch (level) {
-                        case Enums.Level.Debug:
+                        case Level.Debug:
                             _loggerWriter.Write("====== DEBUG ======");
                             break;
-                        case Enums.Level.Info:
+                        case Level.Info:
                             _loggerWriter.Write("====== INFO  ======");
                             break;
-                        case Enums.Level.Error:
+                        case Level.Error:
                             _loggerWriter.Write("====== ERROR ======");
                             break;
-                        case Enums.Level.Fatal:
+                        case Level.Fatal:
                             _loggerWriter.Write("====== FATAL ======");
                             break;
                         default:
@@ -46,19 +46,19 @@ namespace Squirrel_Logger {
                     }
                     _loggerWriter.Write(message);
                     break;
-                case Enums.OutputType.Console:
+                case OutputType.Console:
                     Console.WriteLine();
                     switch (level) {
-                        case Enums.Level.Debug:
+                        case Level.Debug:
                             CenterText("====== DEBUG ======");
                             break;
-                        case Enums.Level.Info:
+                        case Level.Info:
                             CenterText("====== INFO  ======");
                             break;
-                        case Enums.Level.Error:
+                        case Level.Error:
                             CenterText("====== ERROR ======");
                             break;
-                        case Enums.Level.Fatal:
+                        case Level.Fatal:
                             CenterText("====== FATAL ======");
                             break;
                         default:
@@ -77,21 +77,21 @@ namespace Squirrel_Logger {
         /// <param name="outputType">The output type you with to use Either 'File' or 'Console'</param>
         /// <param name="level">The error level of the log Either 'Debug' or 'Info' or 'Error' or 'Fatal'</param>
         /// <param name="ex">A exception message</param>
-        public void Log(Enums.OutputType outputType, Enums.Level level, Exception ex) {
+        public void Log(OutputType outputType, Level level, Exception ex) {
             switch (outputType) {
-                case Enums.OutputType.File:
+                case OutputType.File:
                     _loggerWriter.WriteLine();
                     switch (level) {
-                        case Enums.Level.Debug:
+                        case Level.Debug:
                             _loggerWriter.Write("====== DEBUG ======");
                             break;
-                        case Enums.Level.Info:
+                        case Level.Info:
                             _loggerWriter.Write("====== INFO  ======");
                             break;
-                        case Enums.Level.Error:
+                        case Level.Error:
                             _loggerWriter.Write("====== ERROR ======");
                             break;
-                        case Enums.Level.Fatal:
+                        case Level.Fatal:
                             _loggerWriter.Write("====== FATAL ======");
                             break;
                         default:
@@ -99,19 +99,19 @@ namespace Squirrel_Logger {
                     }
                     _loggerWriter.Write(StringBuilder(ex));
                     break;
-                case Enums.OutputType.Console:
+                case OutputType.Console:
                     Console.WriteLine();
                     switch (level) {
-                        case Enums.Level.Debug:
+                        case Level.Debug:
                             CenterText("====== DEBUG ======");
                             break;
-                        case Enums.Level.Info:
+                        case Level.Info:
                             CenterText("====== INFO  ======");
                             break;
-                        case Enums.Level.Error:
+                        case Level.Error:
                             CenterText("====== ERROR ======");
                             break;
-                        case Enums.Level.Fatal:
+                        case Level.Fatal:
                             CenterText("====== FATAL ======");
                             break;
                         default:
@@ -147,5 +147,17 @@ namespace Squirrel_Logger {
         /// This disposes everything.
         /// </summary>
         public void Dispose() => _loggerWriter.Close();
+
+        public enum OutputType {
+            File,
+            Console
+        }
+
+        public enum Level {
+            Debug,
+            Info,
+            Error,
+            Fatal
+        }
     }
 }
