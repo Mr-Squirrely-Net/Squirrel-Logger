@@ -10,9 +10,15 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageId>SquirrelLogger</PackageId>
     <PackageProjectUrl>https://github.com/MrSquirrelyNet/Squirrel-Logger</PackageProjectUrl>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <RepositoryUrl>https://github.com/MrSquirrelyNet/Squirrel-Logger</RepositoryUrl>
-    <PackageReleaseNotes>1.2.0: Updated the way you create logs.</PackageReleaseNotes>
+    <PackageReleaseNotes>1.3.0: 
+    - Updated the way you create logs
+    - Should no longer create a file even if you do not use a file
+1.2.2: Fixed console center bug
+1.2.0: Updated the way you create logs.</PackageReleaseNotes>
+    <PackageIconUrl>https://raw.githubusercontent.com/MrSquirrelyNet/Squirrel-Logger/master/icon.png</PackageIconUrl>
+    <NeutralLanguage />
   </PropertyGroup>
 
   <ItemGroup>
